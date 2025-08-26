@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>For You, Every Day ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --ink:#222; --accent:#ff6b8a; }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; min-height:100dvh; display:grid; place-items:center;
+      background:#ffb9c9; /* solid pink background */
+    }
+    .main{ max-width:900px; padding:2rem; text-align:center; }
+    .card{ background:rgba(255,255,255,.85); border:2px solid var(--accent); border-radius:24px; padding:3rem 1.5rem; box-shadow:0 10px 30px rgba(0,0,0,.15);}
+    .quote{ font-family:'Playfair Display',serif; font-size:clamp(28px,6vw,56px); line-height:1.15; color:var(--ink); margin:0 auto 1rem; position:relative; }
+    .quote::before{ content:'“'; font-size:1.3em; position:absolute; left:-.2em; top:-.25em; color:var(--accent); opacity:.35; }
+    .author{ font-family:'Poppins',system-ui,sans-serif; font-weight:700; letter-spacing:.12em; color:var(--ink); opacity:.85; }
+    .date{ font-family:'Poppins',system-ui; margin-top:.6rem; font-size:.9rem; opacity:.6; }
+    .footer{ margin-top:1rem; font-size:.8rem; opacity:.6; }
+  </style>
+</head>
+<body>
+  <main class="main" aria-live="polite">
+    <section class="card">
+      <h1 class="quote" id="msg">Loading…</h1>
+      <div class="author" id="by"></div>
+      <div class="date" id="when"></div>
+    </section>
+    <p class="footer">Made with ❤️ for <span id="recipient">you</span></p>
+  </main>
+  <script>
+    const START_DATE = '2025-08-01';
+    const RECIPIENT  = 'her';
+    const messages = [
+      { text: "My heart is so full of you I can hardly call it my own.", author: "Liana Rădulescu" },
+      { text: "I love loving you. Simple as that.", author: "— Carl" },
+      { text: "No matter the miles, you’re my next-door heartbeat.", author: "— Carl" },
+      { text: "Study hard, dream big. I’m cheering for you every day.", author: "— Carl" },
+      { text: "I’d pick you. In every universe.", author: "— Carl" }
+    ];
+    document.getElementById('recipient').textContent = RECIPIENT;
+    const msgEl=document.getElementById('msg'), byEl=document.getElementById('by'), whenEl=document.getElementById('when');
+    function pickIndex(n){ const d=Math.floor((new Date()-new Date(START_DATE+'T00:00:00'))/86400000); return ((d%n)+n)%n; }
+    function render(m){ msgEl.textContent='“'+m.text+'”'; byEl.textContent=m.author||''; whenEl.textContent=new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}); }
+    (function(){ try{ render(messages[pickIndex(messages.length)]) } catch(e){ msgEl.textContent="I love you more than my code skills."; byEl.textContent="— Carl"; } })();
+  </script>
+</body>
+</html>
